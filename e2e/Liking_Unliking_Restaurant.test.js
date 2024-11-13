@@ -28,7 +28,9 @@ Scenario('liking and unliking one restaurant', async ({ I }) => {
 
   // Klik tombol "View Details" pada restoran pertama
   I.seeElement('.cta-detail');
-  I.click('.cta-detail');
+  I.wait(10);
+  // eslint-disable-next-line no-undef
+  I.click(locate('.cta-detail').first());
 
   // Tunggu sampai tombol like muncul
   I.waitForElement('#likeButton', 5);  // Pastikan tombol like tersedia

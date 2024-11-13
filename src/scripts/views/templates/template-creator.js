@@ -2,7 +2,7 @@ import CONFIG from '../../globals/config';
 
 const createRestaurantDetailTemplate = (restaurant) => `
   <h2 class="restaurant__name">${restaurant.name}</h2>
-  <img tabindex="0" src="${CONFIG.BASE_IMAGE_URL.replace('<pictureId>', restaurant.pictureId)}" alt="${restaurant.name}" crossorigin="anonymous" class="lazyload">
+  <img tabindex="0" data-src="${CONFIG.BASE_IMAGE_URL.replace('<pictureId>', restaurant.pictureId)}" alt="${restaurant.name}" crossorigin="anonymous" class="lazyload">
     <p>Address: ${restaurant.address}</p>
   <div class="restaurant__info">
   <h3>Information</h3>
@@ -65,7 +65,7 @@ const createSkeletonRestaurantTemplate = (count) => {
 
 const createRestaurantItemTemplate = (restaurant) => `
   <div class="restaurant-card">
-    <img src="${CONFIG.BASE_IMAGE_URL.replace('<pictureId>', restaurant.pictureId)}" alt="${restaurant.name}" tabindex="0" crossorigin="anonymous" class="card-image lazyload">
+    <img data-src="${CONFIG.BASE_IMAGE_URL.replace('<pictureId>', restaurant.pictureId)}" alt="${restaurant.name}" tabindex="0" crossorigin="anonymous" class="card-image lazyload">
     <h3 class='restaurant-name'>${restaurant.name}</h3>
     <p class='skeleton'>Rating: ${restaurant.rating} | City: ${restaurant.city}</p>
     <a href="#/detail/${restaurant.id}" class="cta-detail" tabindex="0">View Details</a>
