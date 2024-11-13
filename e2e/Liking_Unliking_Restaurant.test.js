@@ -20,40 +20,32 @@ Scenario('showing empty liked restaurant', ({ I }) => {
 Scenario('liking and unliking one restaurant', async ({ I }) => {
   I.see('Tidak ada restaurant untuk ditampilkan', '.restaurant-item__not__found');
 
-  // Pergi ke halaman utama untuk memilih restoran
   I.amOnPage('/');
 
-  // Ambil nama restoran pertama yang benar
+  I.waitForElement('.restaurant-name', 5);
   const firstRestaurantName = await I.grabTextFrom('.restaurant-name');
 
-  // Klik tombol "View Details" pada restoran pertama
-  I.seeElement('.cta-detail');
-  I.wait(10);
+  I.waitForElement('.cta-detail', 5);
   // eslint-disable-next-line no-undef
   I.click(locate('.cta-detail').first());
 
-  // Tunggu sampai tombol like muncul
-  I.waitForElement('#likeButton', 5);  // Pastikan tombol like tersedia
+  I.waitForElement('#likeButton', 5);
 
-  // Klik tombol like untuk menyukai restoran
   I.click('#likeButton');
 
-  // Verifikasi bahwa restoran muncul di halaman favorit
   I.amOnPage('/#/favorite');
-  I.seeElement('.restaurant-card');
+  I.waitForElement('.restaurant-card', 5);
   const likedRestaurantName = await I.grabTextFrom('.restaurant-name');
 
-  // Memastikan nama restoran yang disukai sesuai
   assert.strictEqual(firstRestaurantName, likedRestaurantName);
 
-  // Klik tombol "View Details" di halaman favorite
-  I.seeElement('.cta-detail');
+  I.waitForElement('.cta-detail', 5);
   I.click('.cta-detail');
 
-  // Batal menyukai restoran
-  I.click('#likeButton');  // Klik lagi untuk membatalkan like
+  I.waitForElement('#likeButton', 5);
+  I.click('#likeButton');
 
-  // Verifikasi bahwa restoran tidak ada lagi di halaman favorit
   I.amOnPage('/#/favorite');
-  I.dontSee('.restaurant-card');  // Pastikan restoran tidak ada di daftar favorit
+  I.waitForElement('#restaurants-container', 5);
+  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurant-item__not__found');
 });

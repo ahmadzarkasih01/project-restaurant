@@ -105,8 +105,8 @@ module.exports = {
           options: {
             cacheName: 'therestaurantdb-image-api',
             expiration: {
-              maxEntries: 50, // Batasan cache
-              maxAgeSeconds: 30 * 24 * 60 * 60, // Cache gambar selama 30 hari
+              maxEntries: 50,
+              maxAgeSeconds: 30 * 24 * 60 * 60,
             },
           },
         },
