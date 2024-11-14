@@ -7,11 +7,11 @@ Feature('Liking and Unliking Restaurant');
 // eslint-disable-next-line no-undef
 Before(({ I }) => {
   I.amOnPage('/#/favorite');
+  I.wait(3);
 });
 
 // eslint-disable-next-line no-undef
 Scenario('showing empty liked restaurant', ({ I }) => {
-  I.waitForElement('#restaurants-container', 5);
   I.seeElement('#restaurants-container');
   I.see('Tidak ada restaurant untuk ditampilkan', '.restaurant-item__not__found');
 });
@@ -21,31 +21,27 @@ Scenario('liking and unliking one restaurant', async ({ I }) => {
   I.see('Tidak ada restaurant untuk ditampilkan', '.restaurant-item__not__found');
 
   I.amOnPage('/');
+  I.wait(10);
 
-  I.waitForElement('.restaurant-name', 5);
-  const firstRestaurantName = await I.grabTextFrom('.restaurant-name');
-
-  I.waitForElement('.cta-detail', 5);
+  I.seeElement('.restaurant-card a');
   // eslint-disable-next-line no-undef
-  I.click(locate('.cta-detail').first());
-
+  const firstRestaurant = locate('.restaurant-card a').first();
+  const firstRestaurantName = await I.grabTextFrom('.restaurant-name');
+  I.click(firstRestaurant);
   I.waitForElement('#likeButton', 5);
-
   I.click('#likeButton');
-
   I.amOnPage('/#/favorite');
   I.waitForElement('.restaurant-card', 5);
   const likedRestaurantName = await I.grabTextFrom('.restaurant-name');
-
   assert.strictEqual(firstRestaurantName, likedRestaurantName);
-
-  I.waitForElement('.cta-detail', 5);
-  I.click('.cta-detail');
-
+  I.waitForElement('.restaurant-card a', 5);
+  I.click('.restaurant-card a');
   I.waitForElement('#likeButton', 5);
   I.click('#likeButton');
-
   I.amOnPage('/#/favorite');
   I.waitForElement('#restaurants-container', 5);
-  I.see('Tidak ada restaurant untuk ditampilkan', '.restaurant-item__not__found');
+  I.see(
+    'Tidak ada restaurant untuk ditampilkan',
+    '.restaurant-item__not__found'
+  );
 });

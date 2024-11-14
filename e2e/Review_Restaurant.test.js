@@ -13,7 +13,6 @@ Scenario('Post resto review', async ({ I }) => {
   I.seeElement('.cta-detail');
   I.click(locate('.cta-detail').first());
 
-  I.waitForElement('.form-review form', 5);
   I.fillField('#inputName', 'test review');
   I.fillField('#inputReview', reviewText);
   I.click('#submit-review');
